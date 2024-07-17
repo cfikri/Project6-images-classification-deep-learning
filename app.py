@@ -30,6 +30,8 @@ if st.button("Prendre une photo avec la webcam"):
         st.image(frame, channels="BGR")
         race = mt.prediction_race(model, img_path)
         st.write(f"La race du chien est : {race}")
+    else:
+        st.write("Impossible de prendre une photo. Vérifiez votre webcam.")
     cap.release()
     cv2.destroyAllWindows()
 
