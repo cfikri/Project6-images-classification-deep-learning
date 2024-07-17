@@ -4,4 +4,4 @@ if [ -z "$PORT" ]; then
   PORT=8501
 fi
 
-streamlit run api.py --server.port $PORT
+streamlit run app.py --server.port $PORT
