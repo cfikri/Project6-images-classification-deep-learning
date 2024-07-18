@@ -1,5 +1,6 @@
 pandas
 matplotlib
+seaborn
 mlflow
 boto3
 scikit-learn
