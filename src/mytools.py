@@ -77,7 +77,7 @@ def compile_and_train(model,
                       loss='categorical_crossentropy',
                       optimizer=Adam,
                       learning_rate=0.001,
-                      metrics=['accuracy', 'precision', 'recall', 'auc'],
+                      metrics=['accuracy'],
                       epochs=20,
                       stopping=10,
                       lr_patience=5,
@@ -85,11 +85,15 @@ def compile_and_train(model,
                       verbose=1
                      ):
     
-    # Compilation du modèle
-    model.compile(loss=loss,
-                  optimizer=optimizer(learning_rate=learning_rate),
-                  metrics=metrics
-                 )
+   # Compilation du modèle
+    try:
+        model.compile(loss=loss,
+                      optimizer=optimizer(learning_rate=learning_rate),
+                      metrics=metrics
+                     )
+        print("Compilation réussie.")
+    except Exception as e:
+        print(f"Erreur lors de la compilation : {e}")
     
     # Construction des callbacks
     early_stopping = EarlyStopping(monitor='val_loss', patience=stopping, restore_best_weights=True)
@@ -98,18 +102,22 @@ def compile_and_train(model,
     debut = time()
     
     # Entraînement du modèle
-    history = model.fit(train_data,
-                        validation_data=val_data,
-                        epochs=epochs,
-                        callbacks=[early_stopping, reduce_lr],
-                        verbose=verbose
-                       )
+    try:
+        history = model.fit(train_data,
+                            validation_data=val_data,
+                            epochs=epochs,
+                            callbacks=[early_stopping, reduce_lr],
+                            verbose=verbose
+                           )
+        print("Entraînement réussi.")
+    except Exception as e:
+        print(f"Erreur lors de l'entraînement : {e}")
+    
     fin = time()
     
     duree = fin - debut
     
     return history, round(duree/60)
-
 
 
 def graphique_auc_perte(history, model_name):

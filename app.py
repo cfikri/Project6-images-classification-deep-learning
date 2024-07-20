@@ -8,7 +8,7 @@ import os
 @st.cache_resource
 def load_model():
     mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI", "http://ec2-52-209-5-80.eu-west-1.compute.amazonaws.com:5000"))
-    model_uri = "s3://mlflow-cfikri/937544924322822054/f154eae389294193aed012085329d82b/artifacts/InceptionV3"
+    model_uri = "s3://mlflow-cfikri/937544924322822054/abf6ea0565f34e68b8a013b1356be744/artifacts/InceptionV3"
     return mlflow.tensorflow.load_model(model_uri)
 
 model = load_model()
